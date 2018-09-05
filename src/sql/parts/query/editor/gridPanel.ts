@@ -143,9 +143,9 @@ export class GridPanel extends ViewletPanel {
 
 		let tables: GridTable<any>[] = [];
 
-		for (let set of resultsToAdd) {
+		for (let resultSet of resultsToAdd) {
 			let tableState = new GridTableState();
-			let table = new GridTable(this.runner, tableState, set, this.contextMenuService, this.instantiationService);
+			let table = new GridTable(this.runner, tableState, resultSet, this.contextMenuService, this.instantiationService);
 			tableState.onMaximizedChange(e => {
 				if (e) {
 					this.maximizeTable(table.id);

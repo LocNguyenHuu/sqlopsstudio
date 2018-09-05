@@ -292,30 +292,30 @@ export class ScrollableSplitView extends HeightMap implements IDisposable {
 		this.state = State.Idle;
 	}
 
-	moveView(from: number, to: number): void {
+	moveView(fromIndex: number, toIndex: number): void {
 		if (this.state !== State.Idle) {
 			throw new Error('Cant modify splitview');
 		}
 
 		this.state = State.Busy;
 
-		if (from < 0 || from >= this.viewItems.length) {
+		if (fromIndex < 0 || fromIndex >= this.viewItems.length) {
 			return;
 		}
 
-		if (to < 0 || to >= this.viewItems.length) {
+		if (toIndex < 0 || toIndex >= this.viewItems.length) {
 			return;
 		}
 
-		if (from === to) {
+		if (fromIndex === toIndex) {
 			return;
 		}
 
-		const viewItem = this.viewItems.splice(from, 1)[0];
-		this.viewItems.splice(to, 0, viewItem);
+		const viewItem = this.viewItems.splice(fromIndex, 1)[0];
+		this.viewItems.splice(toIndex, 0, viewItem);
 
-		if (to + 1 < this.viewItems.length) {
-			this.el.insertBefore(viewItem.container, this.viewItems[to + 1].container);
+		if (toIndex + 1 < this.viewItems.length) {
+			this.el.insertBefore(viewItem.container, this.viewItems[toIndex + 1].container);
 		} else {
 			this.el.appendChild(viewItem.container);
 		}

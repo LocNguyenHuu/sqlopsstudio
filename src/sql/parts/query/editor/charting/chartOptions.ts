@@ -29,7 +29,7 @@ export interface IChartOption {
 	default: any;
 	options?: any[];
 	displayableOptions?: string[];
-	if?: (options: IInsightOptions) => boolean;
+	condition?: (options: IInsightOptions) => boolean;
 }
 
 export interface IChartOptions {
@@ -51,7 +51,7 @@ const columnsAsLabelsInput: IChartOption = {
 	type: ControlType.checkbox,
 	configEntry: 'columnsAsLabels',
 	default: false,
-	if: (options: IInsightOptions) => {
+	condition: (options: IInsightOptions) => {
 		return options.dataDirection === DataDirection.Vertical && options.dataType !== DataType.Point;
 	}
 };
@@ -61,7 +61,7 @@ const labelFirstColumnInput: IChartOption = {
 	type: ControlType.checkbox,
 	configEntry: 'labelFirstColumn',
 	default: false,
-	if: (options: IInsightOptions) => {
+	condition: (options: IInsightOptions) => {
 		return options.dataDirection === DataDirection.Horizontal && options.dataType !== DataType.Point;
 	}
 };

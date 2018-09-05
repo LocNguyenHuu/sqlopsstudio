@@ -168,8 +168,8 @@ export class ChartView implements IPanelView {
 		for (let key in this.optionMap) {
 			if (this.optionMap.hasOwnProperty(key)) {
 				let option = ChartOptions[this.options.type].find(e => e.configEntry === key);
-				if (option && option.if) {
-					if (option.if(this.options)) {
+				if (option && option.condition) {
+					if (option.condition(this.options)) {
 						new Builder(this.optionMap[key]).show();
 					} else {
 						new Builder(this.optionMap[key]).hide();

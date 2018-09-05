@@ -41,13 +41,13 @@ export class ObjectMetadataWrapper implements ObjectMetadata {
 	public name: string;
 	public schema: string;
 
-	constructor(from?: ObjectMetadata) {
-		if (from) {
-			this.metadataType = from.metadataType;
-			this.metadataTypeName = from.metadataTypeName;
-			this.urn = from.urn;
-			this.name = from.name;
-			this.schema = from.schema;
+	constructor(metadata?: ObjectMetadata) {
+		if (metadata) {
+			this.metadataType = metadata.metadataType;
+			this.metadataTypeName = metadata.metadataTypeName;
+			this.urn = metadata.urn;
+			this.name = metadata.name;
+			this.schema = metadata.schema;
 		}
 	}
 

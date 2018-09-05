@@ -68,12 +68,12 @@ export class RowSelectionModel<T extends Slick.SlickData> implements Slick.Selec
 		return this._ranges;
 	}
 
-	private getRowsRange(from: number, to: number): number[] {
+	private getRowsRange(fromRow: number, toRow: number): number[] {
 		let i, rows = [];
-		for (i = from; i <= to; i++) {
+		for (i = fromRow; i <= toRow; i++) {
 			rows.push(i);
 		}
-		for (i = to; i < from; i++) {
+		for (i = toRow; i < fromRow; i++) {
 			rows.push(i);
 		}
 		return rows;

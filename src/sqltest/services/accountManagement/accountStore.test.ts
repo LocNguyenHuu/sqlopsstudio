@@ -14,10 +14,10 @@ suite('Account Store Tests', () => {
 	test('AddOrUpdate - Uninitialized memento', done => {
 		// Setup: Create account store w/o initialized memento
 		let memento = {};
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I add an account to the store
-		as.addOrUpdate(account1)
+		accountStore.addOrUpdate(account1)
 			.then(result => {
 				// Then:
 				// ... I should have gotten back a result indicating the account was added
@@ -40,10 +40,10 @@ suite('Account Store Tests', () => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = {};
 		memento[AccountStore.MEMENTO_KEY] = [];
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I add an account to the store
-		as.addOrUpdate(account1)
+		accountStore.addOrUpdate(account1)
 			.then(result => {
 				// Then:
 				// ... I should have gotten back a result indicating the account was added
@@ -65,7 +65,7 @@ suite('Account Store Tests', () => {
 	test('AddOrUpdate - Updates account', done => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = getTestMemento();
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I add an account to the store that already exists
 		let param = <sqlops.Account>{
@@ -73,7 +73,7 @@ suite('Account Store Tests', () => {
 			displayInfo: account1.displayInfo,
 			isStale: account1.isStale
 		};
-		as.addOrUpdate(param)
+		accountStore.addOrUpdate(param)
 			.then(result => {
 				// Then:
 				// ... I should have gotten back a result indicating the account was updated
@@ -96,10 +96,10 @@ suite('Account Store Tests', () => {
 	test('GetAccountsByProvider - Uninitialized memento', done => {
 		// Setup: Create account store w/o initialized memento
 		let memento = {};
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts by provider
-		as.getAccountsByProvider('azure')
+		accountStore.getAccountsByProvider('azure')
 			.then(result => {
 				// Then:
 				// ... I should get back an empty array
@@ -119,10 +119,10 @@ suite('Account Store Tests', () => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = {};
 		memento[AccountStore.MEMENTO_KEY] = [];
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts when there aren't any accounts
-		as.getAccountsByProvider('azure')
+		accountStore.getAccountsByProvider('azure')
 			.then(result => {
 				// Then: I should get back an empty array
 				assert.ok(Array.isArray(result));
@@ -137,10 +137,10 @@ suite('Account Store Tests', () => {
 	test('GetAccountsByProvider - Accounts, but no accounts for provider', done => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = getTestMemento();
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts by provider that doesn't have accounts
-		as.getAccountsByProvider('cloudycloud')
+		accountStore.getAccountsByProvider('cloudycloud')
 			.then(result => {
 				// Then: I should get back an empty array
 				assert.ok(Array.isArray(result));
@@ -155,10 +155,10 @@ suite('Account Store Tests', () => {
 	test('GetAccountsByProvider - Accounts for provider', done => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = getTestMemento();
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts by provider that has accounts
-		as.getAccountsByProvider('azure')
+		accountStore.getAccountsByProvider('azure')
 			.then(result => {
 				// Then: I should get the accounts
 				assert.ok(Array.isArray(result));
@@ -175,10 +175,10 @@ suite('Account Store Tests', () => {
 	test('GetAllAccounts - Uninitialized memento', done => {
 		// Setup: Create account store w/o initialized memento
 		let memento = {};
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts
-		as.getAllAccounts()
+		accountStore.getAllAccounts()
 			.then(result => {
 				// Then:
 				// ... I should get back an empty array
@@ -198,10 +198,10 @@ suite('Account Store Tests', () => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = {};
 		memento[AccountStore.MEMENTO_KEY] = [];
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts when there aren't any accounts
-		as.getAllAccounts()
+		accountStore.getAllAccounts()
 			.then(result => {
 				// Then: I should get back an empty array
 				assert.ok(Array.isArray(result));
@@ -216,10 +216,10 @@ suite('Account Store Tests', () => {
 	test('GetAllAccounts - Accounts', done => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = getTestMemento();
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I get accounts
-		as.getAllAccounts()
+		accountStore.getAllAccounts()
 			.then(result => {
 				// Then: I should get the accounts
 				assert.ok(Array.isArray(result));
@@ -236,10 +236,10 @@ suite('Account Store Tests', () => {
 	test('Remove - Uninitialized menento', done => {
 		// Setup: Create account store w/o initialized memento
 		let memento = {};
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I remove an account when there's an uninitialized memento
-		as.remove(account1.key)
+		accountStore.remove(account1.key)
 			.then(result => {
 				// Then:
 				// ... I should get back false (no account removed)
@@ -259,10 +259,10 @@ suite('Account Store Tests', () => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = {};
 		memento[AccountStore.MEMENTO_KEY] = [];
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I remove an account that doesn't exist
-		as.remove({ providerId: 'cloudyCloud', accountId: 'testyTest' })
+		accountStore.remove({ providerId: 'cloudyCloud', accountId: 'testyTest' })
 			.then(result => {
 				// Then:
 				// ... I should get back false (no account removed)
@@ -281,10 +281,10 @@ suite('Account Store Tests', () => {
 	test('Remove - Account exists', done => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = getTestMemento();
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// If: I remove an account that does exist
-		as.remove(account1.key)
+		accountStore.remove(account1.key)
 			.then(result => {
 				// Then:
 				// ... I should get back true (account removed)
@@ -305,13 +305,13 @@ suite('Account Store Tests', () => {
 		// Setup:
 		// ... Create account store w/o initialized memento
 		let memento = {};
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// ... Create a callback that we can verify was called
 		let updateCallback = new EventVerifierSingle<sqlops.Account>();
 
 		// If: I update an account
-		as.update(account1.key, updateCallback.eventHandler)
+		accountStore.update(account1.key, updateCallback.eventHandler)
 			.then(result => {
 				// Then:
 				// ... I should get back false (account did not change)
@@ -334,13 +334,13 @@ suite('Account Store Tests', () => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = {};
 		memento[AccountStore.MEMENTO_KEY] = [];
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// ... Create a callback that we can verify was called
 		let updateCallback = new EventVerifierSingle<sqlops.Account>();
 
 		// If: I update an account that doesn't exist
-		as.update({ accountId: 'testyTest', providerId: 'cloudyCloud' }, updateCallback.eventHandler)
+		accountStore.update({ accountId: 'testyTest', providerId: 'cloudyCloud' }, updateCallback.eventHandler)
 			.then(result => {
 				// Then:
 				// ... I should get back false (account did not change)
@@ -362,7 +362,7 @@ suite('Account Store Tests', () => {
 	test('Update - Account exists', done => {
 		// Setup: Create account store with initialized memento with accounts
 		let memento = getTestMemento();
-		let as = new AccountStore(memento);
+		let accountStore = new AccountStore(memento);
 
 		// ... Create a callback to update the account
 		let newDisplayName = 'Display Name Changed!';
@@ -371,7 +371,7 @@ suite('Account Store Tests', () => {
 		};
 
 		// If: I update an account that exists
-		as.update(account1.key, updateCallback)
+		accountStore.update(account1.key, updateCallback)
 			.then(result => {
 				// Then:
 				// ... I should get back true (account did change)
